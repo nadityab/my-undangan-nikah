@@ -213,8 +213,8 @@
           data-bs-root-margin="25% 0% 0% 0%"
           data-bs-smooth-scroll="true"
           tabindex="0"
-          class="pb-5"
-          style="padding-bottom: 6rem !important"
+          class="pb-0"
+          style="padding-bottom: 0px !important"
         >
           <!-- Home -->
           <section
@@ -1085,10 +1085,10 @@
           <!-- Kita gunakan ID kustom "ucapan-section" agar terhindar dari pembersihan paksa guest.js -->
           <section
             id="ucapan-section"
-            class="container my-5 py-4 bg-light-dark rounded-4 shadow-sm"
+            class="container mt-5 mb-0 pt-4 pb-5 bg-light-dark rounded-4 shadow-sm"
           >
-            <div class="row justify-content-center">
-              <div class="col-md-12">
+            <div class="row justify-content-center m-0 p-0">
+              <div class="col-md-12 p-1">
                 <div class="text-center mb-4">
                   <h2 class="font-esthetic" style="font-size: 2.5rem">
                     Ucapan & Doa Restu
@@ -1109,7 +1109,7 @@
                       type="text"
                       class="form-control rounded-3"
                       id="form-name-view"
-                      value=""
+                      value="Anonymous"
                       placeholder="Masukkan nama Anda"
                     />
                   </div>
@@ -1143,24 +1143,48 @@
                     ></textarea>
                   </div>
 
+                  <div id="information" class="mb-2"></div>
+
                   <button
                     type="button"
+                    id="comment-form-default"
                     class="btn btn-primary w-100 rounded-3 fw-bold"
-                    onclick="alert('Terima kasih atas ucapannya!')"
                   >
                     <i class="fa-solid fa-paper-plane me-2"></i>Kirim Ucapan
                   </button>
                 </div>
+
+                <div class="d-flex align-items-center my-4 opacity-75">
+                  <hr class="flex-grow-1 m-0 border-secondary" />
+                  <span
+                    class="mx-3 small fw-bold text-body"
+                    style="letter-spacing: 1px"
+                  >
+                    <i class="fa-regular fa-comments me-1 text-primary"></i>
+                    <span class="text-theme-auto">Daftar Doa Tamu</span>
+                  </span>
+                  <hr class="flex-grow-1 m-0 border-secondary" />
+                </div>
+
+                <div
+                  id="comments"
+                  data-loading="false"
+                  class="overflow-y-auto px-1 with-scrollbar"
+                  style="
+                    max-height: 20rem;
+                    scroll-behavior: smooth;
+                    padding-bottom: 1rem;
+                  "
+                ></div>
               </div>
             </div>
           </section>
 
-          <!-- End Of Invitation -->
-          <section class="bg-white-black py-2 no-gap-bottom">
+          <section class="bg-white-black pt-2 pb-4 no-gap-bottom">
             <div class="container text-center">
               <p class="pb-2 pt-4" style="font-size: 0.95rem">
                 Terima kasih atas perhatian dan doa restu Anda, yang menjadi
-                kebahagiaan serta kehormatan besar bagi kami.
+                kebehagiaan serta kehormatan besar bagi kami.
               </p>
               <h2 class="font-esthetic" style="font-size: 2rem">
                 Wassalamualaikum Warahmatullahi Wabarakatuh
@@ -1168,38 +1192,43 @@
               <h2 class="font-arabic pt-4" style="font-size: 2rem">
                 اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَۙ
               </h2>
-              <hr class="my-3" />
+              <hr class="my-3 opacity-25" />
+
               <div
-                class="row align-items-center justify-content-between flex-column pb-3"
+                class="pb-1 text-center text-body-secondary"
+                style="font-size: 0.75rem; letter-spacing: 0.3px"
               >
-                <div class="col-auto">
-                  <small
-                    >Build with<i class="fa-solid fa-heart mx-1"></i
-                    >@nadityab</small
-                  >
-                </div>
-                <div class="col-auto">
-                  <small
+                <p class="mb-1">
+                  Build with
+                  <i class="fa-solid fa-heart text-danger mx-0.5"></i> @nadityab
+                </p>
+                <div class="d-flex justify-content-center gap-3 opacity-75">
+                  <span
                     ><i class="fa-brands fa-github me-1"></i
                     ><a
                       target="_blank"
                       href="https://github.com/dewanakl/undangan"
+                      class="text-decoration-none text-reset"
                       >github</a
-                    ></small
+                    ></span
                   >
-                  <small
+                  <span
                     ><i class="fa-solid fa-chart-simple me-1"></i
-                    ><a target="_blank" href="https://status.ulems.my.id"
+                    ><a
+                      target="_blank"
+                      href="https://status.ulems.my.id"
+                      class="text-decoration-none text-reset"
                       >status</a
-                    ></small
+                    ></span
                   >
-                  <small
+                  <span
                     ><i class="fa-solid fa-music me-1"></i
                     ><a
                       target="_blank"
                       href="https://pixabay.com/music/modern-classical-pure-love-304010"
+                      class="text-decoration-none text-reset"
                       >music</a
-                    ></small
+                    ></span
                   >
                 </div>
               </div>
@@ -1480,5 +1509,20 @@
         </div>
       </div>
     </div>
+
+    <script type="module">
+      import { muatDaftarUcapan, kirimUcapanBaru } from "./js/ucapan.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Ambil data dari MongoDB langsung saat website dibuka pertama kali
+        muatDaftarUcapan();
+
+        // Ikatkan fungsi submit data ke tombol kirim form ucapan asli
+        const tombolKirim = document.getElementById("comment-form-default");
+        if (tombolKirim) {
+          tombolKirim.addEventListener("click", kirimUcapanBaru);
+        }
+      });
+    </script>
   </body>
 </html>

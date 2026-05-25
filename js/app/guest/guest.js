@@ -281,8 +281,8 @@ export const guest = (() => {
     const data = new URLSearchParams({
       action: "TEMPLATE",
       text: "The Wedding of Aditya and Rakev",
-      dates: `${formatDate("2023-03-15 10:00")}/${formatDate(
-        "2023-03-15 11:00"
+      dates: `${formatDate("2026-06-15 10:00")}/${formatDate(
+        "2026-06-15 11:00"
       )}`,
       details:
         "Tanpa mengurangi rasa hormat, kami mengundang Anda untuk berkenan menghadiri acara pernikahan kami. Terima kasih atas perhatian dan doa restu Anda, yang menjadi kebahagiaan serta kehormatan besar bagi kami.",
