@@ -4,8 +4,9 @@
  */
 
 // Konfigurasi URL API Backend (Ubah ke IP/Domain VPS jika sudah deploy)
-const API_URL = "http://localhost:3001/api/ucapan";
-
+//const API_URL = "http://localhost:3001/api/ucapan";
+//const API_URL = "http://203.194.115.157:3001/api/ucapan";
+const API_URL = "https://api-undangan.myface.fun/api/ucapan";
 // Helper XSS Protection untuk menetralkan input karakter ilegal dari tamu usil
 function escapeHTML(str) {
   return str.replace(

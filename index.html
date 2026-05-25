@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" data-bs-theme="auto">
+<html lang="id" data-bs-theme="dark">
   <head>
     <!-- Common Tag -->
     <meta charset="utf-8" />
@@ -1109,7 +1109,7 @@
                       type="text"
                       class="form-control rounded-3"
                       id="form-name-view"
-                      value="Anonymous"
+                      value=""
                       placeholder="Masukkan nama Anda"
                     />
                   </div>
@@ -1303,38 +1303,102 @@
     </div>
 
     <!-- Welcome Page -->
-    <div class="loading-page bg-white-black" id="welcome" style="opacity: 0">
-      <div
-        class="d-flex justify-content-center align-items-center vh-100 overflow-y-auto"
-      >
-        <div class="d-flex flex-column text-center">
-          <h2 class="font-esthetic mb-4" style="font-size: 2.25rem">
+    <div
+      class="loading-page position-fixed w-100 vh-100 top-0 start-0"
+      id="welcome"
+      style="z-index: 1050; opacity: 1"
+    >
+      <div class="position-absolute w-100 h-100 top-0 start-0 z-0">
+        <img
+          src="./assets/images/rakebg.jpg"
+          alt="Prewedding Background"
+          class="w-100 h-100 object-fit-cover"
+        />
+        <div
+          class="position-absolute w-100 h-100 top-0 start-0"
+          style="
+            background: linear-gradient(
+              to bottom,
+              rgba(0, 0, 0, 0.2) 0%,
+              rgba(0, 0, 0, 0.4) 50%,
+              rgba(0, 0, 0, 0.85) 100%
+            );
+          "
+        ></div>
+      </div>
+
+      <div class="position-relative w-100 h-100 d-flex flex-column justify-content-end align-items-center text-center p-4 pb-5 z-1 text-white">
+        <div class="mb-5 w-100 px-3">
+          
+          <p
+            class="text-uppercase tracking-widest small m-0 mb-2 opacity-75"
+            style="
+              font-size: 0.9rem;
+              letter-spacing: 4px;
+              font-family: 'Josefin Sans', sans-serif;
+            "
+          >
             The Wedding Of
-          </h2>
-          <img
-            src="./assets/images/placeholder.webp"
-            data-src="./assets/images/rakevgue.jpeg"
-            alt="background"
-            class="img-center-crop rounded-circle border border-3 border-light shadow mb-4 mx-auto"
-          />
-          <h2 class="font-esthetic mb-4" style="font-size: 2.25rem">
-            Aditya &amp; Rakev
-          </h2>
+          </p>
+      
+          <h1
+          class="mb-4 fw-normal text-capitalize"
+          style="
+            font-family: 'Sacramento', serif;
+            font-size: 4.2rem;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2; /* Menjaga jarak antar baris tetap rapat & estetik */
+          "
+        >
+          Adit <br>
+          & <br>
+          Rakev
+        </h1>
+      
+          <p
+            class="m-0 opacity-75"
+            style="
+              font-size: 1rem; 
+              font-family: 'Josefin Sans', sans-serif;
+              letter-spacing: 1px;
+            "
+          >
+            Dear,
+          </p>
+          
           <div
             id="guest-name"
             data-message="Kepada Yth Bapak/Ibu/Saudara/i"
+            class="fw-bold my-2 text-capitalize"
+            style="
+              font-size: 1.65rem;
+              color: #f3e5f5;
+              font-family: 'Josefin Sans', sans-serif;
+              letter-spacing: 0.5px;
+              text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            "
           ></div>
+      
           <button
             type="button"
-            class="btn btn-light shadow rounded-4 mt-3 mx-auto"
+            class="btn btn-light shadow-sm rounded-pill px-4 py-2½ mt-3 fw-medium d-inline-flex align-items-center justify-content-center border-0"
+            style="
+              font-size: 0.95rem;
+              font-family: 'Josefin Sans', sans-serif;
+              min-width: 190px;
+              padding-top: 0.7rem;
+              padding-bottom: 0.7rem;
+              transition: transform 0.2s;
+            "
             onclick="undangan.guest.open(this)"
+            onmouseover="this.style.transform='scale(1.03)'"
+            onmouseout="this.style.transform='scale(1)'"
           >
-            <i class="fa-solid fa-envelope-open fa-bounce me-2"></i>Open
-            Invitation
+            <i class="fa-regular fa-envelope me-2"></i>Buka Undangan
           </button>
         </div>
       </div>
-    </div>
 
     <!-- Button Group -->
     <div
