@@ -212,6 +212,8 @@
           data-bs-root-margin="25% 0% 0% 0%"
           data-bs-smooth-scroll="true"
           tabindex="0"
+          class="pb-5" 
+          style="padding-bottom: 5rem !important;"
         >
           <!-- Home -->
           <section
@@ -1131,6 +1133,61 @@
           </section>
           <!-- ==================================================== -->
 
+          <!-- ====== SEKSI KOMENTAR & UCAPAN (SEKARANG TERLIHAT) ====== -->
+    <!-- Menghapus display:none dan memberikan container pembungkus agar rapi secara visual -->
+    <section id="comment" class="container my-5 py-4 bg-light-dark rounded-4 shadow-sm">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          
+          <!-- Judul Seksi Komentar -->
+          <div class="text-center mb-4">
+            <h2 class="font-esthetic" style="font-size: 2.5rem;">Ucapan & Doa Restu</h2>
+            <p class="text-secondary small">Berikan ucapan selamat dan doa restu kepada kedua mempelai</p>
+          </div>
+
+          <!-- Form Input (Data dummy bawaan logika dipertahankan utuh) -->
+          <div class="card border-0 rounded-4 shadow-sm p-4 mb-4 bg-theme-auto">
+            <div class="mb-3">
+              <label for="form-name" class="form-label small fw-bold">Nama</label>
+              <input type="text" class="form-control rounded-3" id="form-name" value="Anonymous" placeholder="Masukkan nama Anda" />
+            </div>
+            
+            <div class="mb-3">
+              <label for="form-presence" class="form-label small fw-bold">Konfirmasi Kehadiran</label>
+              <select id="form-presence" class="form-select rounded-3">
+                <option value="0" selected>Pilih Kehadiran</option>
+                <option value="1">Hadir</option>
+                <option value="2">Tidak Hadir</option>
+                <option value="3">Masih Ragu</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="form-comment" class="form-label small fw-bold">Ucapan atau Doa</label>
+              <textarea id="form-comment" class="form-control rounded-3" rows="4" placeholder="Tulis ucapan indahmu di sini..."></textarea>
+            </div>
+
+            <!-- Elemen Logic Bawaan Template (Wajib Eksis) -->
+            <div id="information" class="mb-2"></div>
+            <div id="gif-form-default" class="mb-3"></div>
+            
+            <button type="button" id="comment-form-default" class="btn btn-primary w-100 rounded-3fw-bold">
+              <i class="fa-solid fa-paper-plane me-2"></i>Kirim Ucapan
+            </button>
+          </div>
+
+          <!-- Tempat List Komentar Tamu Akan Muncul Otomatis via JavaScript -->
+          <hr class="my-4 opacity-25">
+          <div id="comments" data-loading="false" class="mt-3"></div>
+          
+          <!-- Navigasi Halaman Komentar (Pagination) -->
+          <nav id="pagination" class="d-flex justify-content-center mt-4"></nav>
+
+        </div>
+      </div>
+    </section>
+    <!-- ========================================================= -->
+
           <!-- End Of Invitation -->
           <section class="bg-white-black py-2 no-gap-bottom">
             <div class="container text-center">
@@ -1187,42 +1244,44 @@
 
         <!-- Navbar Bottom -->
         <nav
-          class="navbar navbar-expand sticky-bottom rounded-top-4 border-top p-0"
-          id="navbar-menu"
-        >
-          <ul class="navbar-nav nav-justified w-100 align-items-center">
-            <li class="nav-item">
-              <a class="nav-link" href="#home"
-                ><i class="fa-solid fa-house"></i
-                ><span class="d-block" style="font-size: 0.7rem">Home</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#bride"
-                ><i class="fa-solid fa-user-group"></i
-                ><span class="d-block" style="font-size: 0.7rem"
-                  >Mempelai</span
-                ></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#wedding-date"
-                ><i class="fa-solid fa-calendar-check"></i
-                ><span class="d-block" style="font-size: 0.7rem"
-                  >Tanggal</span
-                ></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#gallery"
-                ><i class="fa-solid fa-images"></i
-                ><span class="d-block" style="font-size: 0.7rem"
-                  >Galeri</span
-                ></a
-              >
-            </li>
-          </ul>
-        </nav>
+        class="navbar navbar-expand sticky-bottom rounded-top-4 border-top p-0 bg-white-black"
+        id="navbar-menu"
+        style="backdrop-filter: blur(4px); display: block !important;"
+      >
+        <ul class="navbar-nav nav-justified w-100 align-items-center m-0 p-0" style="display: flex !important; flex-direction: row !important;">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">
+              <i class="fa-solid fa-house"></i>
+              <span class="d-block" style="font-size: 0.7rem">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#bride">
+              <i class="fa-solid fa-user-group"></i>
+              <span class="d-block" style="font-size: 0.7rem">Mempelai</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#wedding-date">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span class="d-block" style="font-size: 0.7rem">Tanggal</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">
+              <i class="fa-solid fa-images"></i>
+              <span class="d-block" style="font-size: 0.7rem">Galeri</span>
+            </a>
+          </li>
+          
+          <li class="nav-item" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
+            <a class="nav-link" href="#comment" style="display: block !important;">
+              <i class="fa-solid fa-comments"></i>
+              <span class="d-block" style="font-size: 0.7rem">Ucapan</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
       </div>
     </div>
 
@@ -1361,27 +1420,9 @@
       }
     </style>
 
-    <!-- ====== BACKUP SEMUA ID LOGIC KOMENTAR (TERSEMBUNYI) ====== -->
-    <!-- Ini dipasang di paling bawah body agar aman dari jangkauan user, tapi terbaca utuh oleh script -->
-    <div style="display: none !important" aria-hidden="true">
-      <input type="text" id="form-name" value="Anonymous" />
-      <select id="form-presence">
-        <option value="0" selected></option>
-      </select>
-      <textarea id="form-comment">Hidden</textarea>
-      <div id="information"></div>
-      <button id="comment-form-default"></button>
-      <div id="gif-form-default"></div>
+    
 
-      <!-- Container utama yang dicari oleh internal render logic -->
-      <section id="comment">
-        <div id="comments" data-loading="false"></div>
-        <nav id="pagination"></nav>
-      </section>
-    </div>
-    <!-- ========================================================= -->
-
-    <!-- Modal Image -->
+    <!-- Modal Image (Tetap Utuh di Paling Bawah) -->
     <div class="modal fade" id="modal-image" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 border border-0">
