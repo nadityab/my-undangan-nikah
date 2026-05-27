@@ -4,9 +4,9 @@
  */
 
 // Konfigurasi URL API Backend (Ubah ke IP/Domain VPS jika sudah deploy)
-const API_URL = "http://localhost:3001/api/ucapan";
+//const API_URL = "http://localhost:3001/api/ucapan";
 //const API_URL = "http://203.194.115.157:3001/api/ucapan";
-//const API_URL = "https://api-undangan.myface.fun/api/ucapan";
+const API_URL = "https://api-undangan.myface.fun/api/ucapan";
 // Helper XSS Protection untuk menetralkan input karakter ilegal dari tamu usil
 function escapeHTML(str) {
   return str.replace(
@@ -33,10 +33,17 @@ export async function muatDaftarUcapan() {
         </div>
       `;
 
+    // 2. EMBAT DATA LANGSUNG MENGGUNAKAN ABSOLUTE API_URL
     const response = await fetch(API_URL);
+
+    // Proteksi tambahan: Jika respons server backend drop/404, langsung lempar ke catch
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const result = await response.json();
 
-    if (result.success && result.data.length > 0) {
+    if (result.success && result.data && result.data.length > 0) {
       let htmlContent = "";
 
       result.data.forEach((item) => {
@@ -44,6 +51,7 @@ export async function muatDaftarUcapan() {
         let statusKehadiran = "❔ Ragu";
         let badgeClass =
           "bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle";
+
         if (item.kehadiran === 1) {
           statusKehadiran = "✅ Hadir";
           badgeClass =
@@ -64,7 +72,7 @@ export async function muatDaftarUcapan() {
           minute: "2-digit",
         });
 
-        // STRUKTUR KOMPONEN KARTU - SEJAJAR HORIZONTAL DI MOBILE (COMPACT & CLEAN UX)
+        // STRUKTUR KOMPONEN KARTU
         htmlContent += `
             <div class="card bg-theme-auto border border-secondary-subtle shadow-sm p-3 mb-2 rounded-4">
               <div class="d-flex justify-content-between align-items-center gap-2 mb-2">

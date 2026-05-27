@@ -210,9 +210,10 @@
             id="home"
             class="bg-light-dark position-relative overflow-hidden p-0 m-0"
           >
+            <!-- foto 2 = BG awal -->
             <img
               src="./assets/images/placeholder.webp"
-              data-src="./assets/images/rakevgue.jpeg"
+              data-src="./assets/images/rakebg.jpeg"
               alt="bg"
               class="position-absolute opacity-25 top-50 start-50 translate-middle bg-cover-home"
             />
@@ -226,9 +227,10 @@
               >
                 Undangan Pernikahan
               </h1>
+              <!-- foto 1 = gambar di bunderan -->
               <img
                 src="./assets/images/placeholder.webp"
-                data-src="./assets/images/rakevgue.jpeg"
+                data-src="./assets/images/rakebg.jpeg"
                 alt="bg"
                 onclick="undangan.guest.modal(this)"
                 class="img-center-crop rounded-circle border border-3 border-light shadow my-4 mx-auto cursor-pointer"
@@ -309,6 +311,7 @@
                   data-aos-duration="2000"
                   class="pb-1"
                 >
+                  <!-- foto 4 = cowo -->
                   <img
                     src="./assets/images/placeholder.webp"
                     data-src="./assets/images/cowo.webp"
@@ -368,6 +371,7 @@
                 </div>
 
                 <div data-aos="fade-left" data-aos-duration="2000" class="pb-1">
+                  <!-- foto 5 = cewe -->
                   <img
                     src="./assets/images/placeholder.webp"
                     data-src="./assets/images/cewe.webp"
@@ -1283,7 +1287,7 @@
     >
       <div class="position-absolute w-100 h-100 top-0 start-0 z-0">
         <img
-          src="./assets/images/rakebg.jpg"
+          src="./assets/images/rakebg.jpeg"
           alt="Prewedding Background"
           class="w-100 h-100 object-fit-cover"
         />
@@ -1337,7 +1341,7 @@
             Dear,
           </p>
           <div
-            id="guest-name"
+            id="wedding-guest-real"
             class="fw-bold my-2 text-capitalize"
             style="
               font-size: 1.65rem;
@@ -1410,8 +1414,9 @@
               animation: modern-pulse 2s infinite ease-in-out;
             "
           ></div>
+          <!-- foto 3 = loading -->
           <img
-            src="./assets/images/rakevgue.jpeg"
+            src="./assets/images/rakebg.jpeg"
             fetchpriority="high"
             class="img-fluid rounded-circle object-fit-cover shadow position-relative z-2"
             alt="icon"
@@ -1537,48 +1542,115 @@
       </div>
     </div>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const elemenGuestName = document.getElementById("wedding-guest-real");
+        const elemenFormName = document.getElementById("form-name-view");
+
+        // 1. Ambil dari Query Parameter (?to=nama)
+        const urlParams = new URLSearchParams(window.location.search);
+        let namaTamu = urlParams.get("to");
+
+        // 2. Fallback: Ambil dari Path URL jika query string kosong
+        if (!namaTamu) {
+          const pathName = window.location.pathname.replace(/^\/|\/$/g, "");
+          if (
+            pathName &&
+            pathName !== "index.html" &&
+            pathName !== "404.html"
+          ) {
+            namaTamu = pathName;
+          }
+        }
+
+        let namaFinal = "Tamu Yang Saya Hormati"; // Default fallback
+
+        // Validasi ketat agar kata string "null" / "undefined" gaib tidak lolos
+        if (
+          namaTamu &&
+          namaTamu !== "null" &&
+          namaTamu !== "undefined" &&
+          namaTamu.trim() !== ""
+        ) {
+          let namaProses = decodeURIComponent(
+            namaTamu.replace(/\+/g, " ")
+          ).trim();
+
+          if (namaProses) {
+            // Formatter layout luxury vertikal (<br>)
+            if (namaProses.includes(" & ")) {
+              namaProses = namaProses.replace(/ & /g, " <br> & <br> ");
+            } else if (namaProses.includes(" dan ")) {
+              namaProses = namaProses.replace(/ dan /g, " <br> dan <br> ");
+            }
+            namaFinal = namaProses;
+          }
+        }
+
+        // =====================================================================
+        // TEKNIK PAMUNGKAS: LOCK DOWN INNERHTML ELEMEN GUEST-NAME
+        // =====================================================================
+        if (elemenGuestName) {
+          // Set nilai pertama kali yang sudah bersih
+          elemenGuestName.innerHTML = namaFinal;
+          elemenGuestName.style.lineHeight = "1.4";
+
+          // Kunci mati properti innerHTML & textContent menggunakan Object.defineProperty
+          // Biar script lain (guest.js bawaan) kalau coba += atau = lagi bakal dicuekin total oleh browser!
+          const nilaiKunci = elemenGuestName.innerHTML;
+
+          Object.defineProperty(elemenGuestName, "innerHTML", {
+            get: function () {
+              return nilaiKunci;
+            },
+            set: function (val) {
+              console.warn(
+                "Ada script gaib coba ngubah nama tamu, otomatis diblokir sistem, Bre!"
+              );
+              return nilaiKunci;
+            },
+            configurable: false,
+          });
+
+          Object.defineProperty(elemenGuestName, "textContent", {
+            get: function () {
+              return elemenGuestName.innerText;
+            },
+            set: function (val) {
+              return nilaiKunci;
+            },
+            configurable: false,
+          });
+        }
+        // =====================================================================
+
+        // Isi input field nama di form doa/ucapan bawah
+        if (elemenFormName) {
+          if (
+            namaTamu &&
+            namaTamu !== "null" &&
+            namaTamu !== "undefined" &&
+            namaTamu.trim() !== ""
+          ) {
+            elemenFormName.value = decodeURIComponent(
+              namaTamu.replace(/\+/g, " ")
+            ).trim();
+          } else {
+            elemenFormName.value = "";
+          }
+        }
+      });
+    </script>
+
     <script type="module">
       import { muatDaftarUcapan, kirimUcapanBaru } from "./js/ucapan.js";
 
       document.addEventListener("DOMContentLoaded", () => {
         muatDaftarUcapan();
+
         const tombolKirim = document.getElementById("comment-form-default");
         if (tombolKirim) {
           tombolKirim.addEventListener("click", kirimUcapanBaru);
-        }
-      });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const pathName = window.location.pathname.replace(/^\/|\/$/g, "");
-        let namaFinal = "";
-
-        if (pathName && pathName !== "index.html") {
-          let namaTamu = decodeURIComponent(pathName.replace(/\+/g, " "));
-          if (namaTamu.includes(" & ")) {
-            namaTamu = namaTamu.replace(/ & /g, " <br> & <br> ");
-          } else if (namaTamu.includes(" dan ")) {
-            namaTamu = namaTamu.replace(/ dan /g, " <br> dan <br> ");
-          }
-          namaFinal = namaTamu;
-        } else {
-          namaFinal = "Tamu Yang Saya Hormati";
-        }
-
-        const elemenGuestName = document.getElementById("guest-name");
-        if (elemenGuestName) {
-          elemenGuestName.innerHTML = namaFinal;
-          elemenGuestName.style.lineHeight = "1.4";
-        }
-
-        const elemenFormName = document.getElementById("form-name-view");
-        if (elemenFormName) {
-          if (pathName && pathName !== "index.html") {
-            elemenFormName.value = decodeURIComponent(
-              pathName.replace(/\+/g, " ")
-            );
-          } else {
-            elemenFormName.value = "";
-          }
         }
       });
     </script>
