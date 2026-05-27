@@ -1,3 +1,10 @@
 {
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/:slug",
+      "destination": "/index.html?to=:slug"
+    }
+  ]
 }

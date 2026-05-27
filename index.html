@@ -1587,6 +1587,49 @@
           tombolKirim.addEventListener("click", kirimUcapanBaru);
         }
       });
+
+      document.addEventListener("DOMContentLoaded", () => {
+    // Ambil kata dari path url (misal /adit diambil kata "adit")
+    const pathName = window.location.pathname.replace(/^\/|\/$/g, '');
+    
+    // Siapkan variabel untuk menampung nama akhir
+    let namaFinal = "";
+
+    // JIKA ADA NAMA DI URL (bukan kosong dan bukan file index.html)
+    if (pathName && pathName !== 'index.html') {
+      let namaTamu = decodeURIComponent(pathName.replace(/\+/g, ' '));
+      
+      // Otomatis sisipkan <br> setelah kata/tanda "&" atau "dan"
+      if (namaTamu.includes(' & ')) {
+        namaTamu = namaTamu.replace(/ & /g, ' <br> & <br> ');
+      } else if (namaTamu.includes(' dan ')) {
+        namaTamu = namaTamu.replace(/ dan /g, ' <br> dan <br> ');
+      }
+      
+      namaFinal = namaTamu;
+    } 
+    // JIKA LINK KOSONG / TANPA NAMA
+    else {
+      namaFinal = "Tamu Yang Saya Hormati"; // <-- Teks default sesuai keinginanmu
+    }
+
+    // Tampilkan ke halaman Welcome Page
+    const elemenGuestName = document.getElementById("guest-name");
+    if (elemenGuestName) {
+      elemenGuestName.innerHTML = namaFinal;
+      elemenGuestName.style.lineHeight = "1.4"; // Menjaga spasi antarbaris tetap rapi
+    }
+    
+    // Isi otomatis input nama di form ucapan bawah (jika bukan teks default)
+    const elemenFormName = document.getElementById("form-name-view");
+    if (elemenFormName) {
+      if (pathName && pathName !== 'index.html') {
+        elemenFormName.value = decodeURIComponent(pathName.replace(/\+/g, ' '));
+      } else {
+        elemenFormName.value = ""; // Biarkan kosong agar tamu mengetik nama mereka sendiri
+      }
+    }
+  });
     </script>
   </body>
 </html>
