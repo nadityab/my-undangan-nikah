@@ -280,14 +280,13 @@ export const guest = (() => {
     const url = new URL("https://calendar.google.com/calendar/render");
     const data = new URLSearchParams({
       action: "TEMPLATE",
-      text: "The Wedding of Aditya and Rakev",
-      dates: `${formatDate("2026-06-15 10:00")}/${formatDate(
-        "2026-06-15 11:00"
+      text: "The Wedding of Nailul and Yoga",
+      dates: `${formatDate("2026-06-02 10:30")}/${formatDate(
+        "2026-06-02 10:30"
       )}`,
       details:
         "Tanpa mengurangi rasa hormat, kami mengundang Anda untuk berkenan menghadiri acara pernikahan kami. Terima kasih atas perhatian dan doa restu Anda, yang menjadi kebahagiaan serta kehormatan besar bagi kami.",
-      location:
-        "RT 10 RW 02, Desa Pajerukan, Kec. Kalibagor, Kab. Banyumas, Jawa Tengah 53191.",
+      location: "Tempat : Mantingan, Rt28/08,Tahunan,Jepara.",
       ctz: config.get("tz"),
     });
 
